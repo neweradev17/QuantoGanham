@@ -47,6 +47,6 @@ Os nomes dos titulares correspondem aos eleitos nas eleições locais de 12 de o
 git clone https://github.com/neweradev17/QuantoGanham.git
 
 # Abrir num servidor local (necessário para fetch do dados.json)
-cd quanto-ganham
+cd QuantoGanham
 python -m http.server 8000
 # Aceder a http://localhost:8000

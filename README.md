@@ -44,7 +44,7 @@ Os nomes dos titulares correspondem aos eleitos nas eleições locais de 12 de o
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/teu-username/quanto-ganham.git
+git clone https://github.com/neweradev17/QuantoGanham.git
 
 # Abrir num servidor local (necessário para fetch do dados.json)
 cd quanto-ganham

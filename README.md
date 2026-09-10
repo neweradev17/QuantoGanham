@@ -36,12 +36,12 @@ Os nomes dos titulares correspondem aos eleitos nas eleições locais de 12 de o
 
 ## Stack técnica
 
-- HTML5 semântico
-- CSS3 puro (Grid, Flexbox, animações)
+- HTML5
+- CSS3
 - JavaScript vanilla (sem dependências)
 - Google Fonts (Archivo, Public Sans, IBM Plex Mono)
 - Dados em JSON estático (`dados.json`)
-- Hospedado em [Vercel](https://vercel.com)
+- Hospedado no [Vercel](https://vercel.com)
 
 ## Como usar
 

@@ -1,10 +1,10 @@
 # Quanto Ganham
 
-Observatório cívico independente das remunerações dos titulares de cargos políticos em Portugal.
+Observatório cívico das remunerações dos titulares de cargos políticos em Portugal.
 
 ## Sobre o projeto
 
-O **Quanto Ganham** é uma ferramenta de transparência que agrega e apresenta, de forma acessível, os vencimentos dos políticos portugueses — desde o Presidente da República aos 308 presidentes de câmara municipal — com base exclusivamente em fontes públicas e legislação em vigor.
+O **Quanto Ganham** é uma ferramenta de transparência que apresenta, de forma acessível, os vencimentos dos políticos portugueses — desde o Presidente da República aos 308 presidentes de câmara municipal — com base exclusivamente em fontes públicas e legislação em vigor.
 
 ## Funcionalidades
 

@@ -18,6 +18,7 @@ O **Quanto Ganham** é uma ferramenta de transparência que agrega e apresenta, 
 ## Enquadramento legal
 
 Os vencimentos apresentados derivam de:
+
 - **Lei n.º 29/87** — Estatuto dos Eleitos Locais (fixa os escalões autárquicos como percentagem do vencimento do PR)
 - **Orçamento do Estado** (anual) — Atualizações das remunerações
 - **Regime jurídico das autarquias locais** — Composição dos órgãos municipais
@@ -25,6 +26,7 @@ Os vencimentos apresentados derivam de:
 ## Dados
 
 O dataset cobre o mandato autárquico **2025–2029** e inclui:
+
 - 308 câmaras municipais
 - 3.259 freguesias
 - 230 deputados à Assembleia da República
@@ -44,9 +46,29 @@ Os nomes dos titulares correspondem aos eleitos nas eleições locais de 12 de o
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/neweradev17/QuantoGanham.git
+git clone https://github.com/teu-username/quanto-ganham.git
 
-# Abrir num servidor local (necessário para fetch do dados.json)
+# Abrir num servidor local (necessário para o fetch do dados.json)
 cd QuantoGanham
 python -m http.server 8000
 # Aceder a http://localhost:8000
+```
+
+**Nota:** abrir o `index.html` diretamente no browser (protocolo `file://`) não funciona devido a restrições CORS no `fetch()` do `dados.json`.
+
+## Licença
+
+Este projeto é publicado sob a licença **MIT** — uso, estudo, modificação e redistribuição livres, incluindo para fins comerciais, mediante manutenção da nota de licença.
+
+Trata-se de um projeto cívico, independente e sem filiação partidária. Os dados provêm de fontes públicas e podem ser republicados livremente. Para decisões formais, consulte sempre as fontes oficiais citadas no website.
+
+## Contribuir
+
+Correções, sugestões e melhorias são bem-vindas.
+
+1. Faça *fork* do repositório
+2. Crie um *branch* para a sua alteração (`git checkout -b feature/melhoria-x`)
+3. Faça *commit* das mudanças (`git commit -m "Descrição da alteração"`)
+4. Abra um *pull request*
+
+Para erros nos dados (titulares, escalões, valores), abra uma **issue** indicando a fonte oficial que comprova a correção.

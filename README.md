@@ -61,14 +61,3 @@ python -m http.server 8000
 Este projeto é publicado sob a licença **MIT** — uso, estudo, modificação e redistribuição livres, incluindo para fins comerciais, mediante manutenção da nota de licença.
 
 Trata-se de um projeto cívico, independente e sem filiação partidária. Os dados provêm de fontes públicas e podem ser republicados livremente. Para decisões formais, consulte sempre as fontes oficiais citadas no website.
-
-## Contribuir
-
-Correções, sugestões e melhorias são bem-vindas.
-
-1. Faça *fork* do repositório
-2. Crie um *branch* para a sua alteração (`git checkout -b feature/melhoria-x`)
-3. Faça *commit* das mudanças (`git commit -m "Descrição da alteração"`)
-4. Abra um *pull request*
-
-Para erros nos dados (titulares, escalões, valores), abra uma **issue** indicando a fonte oficial que comprova a correção.

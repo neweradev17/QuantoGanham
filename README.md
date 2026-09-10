@@ -51,7 +51,7 @@ Para correr localmente:
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/teu-username/quanto-ganham.git
+git clone https://github.com/neweradev17/QuantoGanham.git
 
 # Abrir num servidor local (necessário para o fetch do dados.json)
 cd QuantoGanham

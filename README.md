@@ -41,12 +41,17 @@ Os nomes dos titulares correspondem aos eleitos nas eleições locais de 12 de o
 - JavaScript vanilla (sem dependências)
 - Google Fonts (Archivo, Public Sans, IBM Plex Mono)
 - Dados em JSON estático (`dados.json`)
+- Hospedado em [Vercel](https://vercel.com)
 
 ## Como usar
 
+**Ver online:** [https://quanto-ganham-pt.vercel.app/](https://quanto-ganham-pt.vercel.app/)
+
+Para correr localmente:
+
 ```bash
 # Clonar o repositório
-git clone https://github.com/neweradev17/QuantoGanham.git
+git clone https://github.com/teu-username/quanto-ganham.git
 
 # Abrir num servidor local (necessário para o fetch do dados.json)
 cd QuantoGanham

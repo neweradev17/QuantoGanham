@@ -741,7 +741,7 @@ function rowHTML(m, i){
       <div class="det-line"><span>Vencimento base (${t.pct}% do PR)</span><b>${fmt(base)} €</b></div>
       <div class="det-line"><span>Despesas de representação (+5 %)</span><b>${fmt(rep)} €</b></div>
       <div class="det-line hl"><span>Total mensal ilíquido</span><b>${fmt(base+rep)} €</b></div>
-      <div class="det-line hl"><span>Total anual (×14)</span><b>${fmt((base+rep)*14)} €</b></div>
+      <div class="det-line hl"><span>Total anual (14x)</span><b>${fmt((base+rep)*14)} €</b></div>
       <div class="det-line"><span>Vereador em permanência (80 % + 10 %)</span><b>${fmt(v80+v80r)} €</b></div>
     </div>
     <div class="note"><strong>Escalão ${k.toUpperCase()}:</strong> ${esc(t.lim)} — ${t.pct} % do vencimento base do Presidente da República (Lei n.º 29/87, art. 2.º).${prBase!==PR_REAL?" <br><strong>⚠ Valor simulado.</strong>":""}</div>
@@ -761,7 +761,7 @@ function renderTable(){
     $("#resbar").innerHTML =
       `<span>Base de dados com <b>${DADOS.mun.length}</b> municípios</span>`+
       `<span>Titulares identificados: <b>${named}/${DADOS.mun.length}</b></span>`+
-      `<span>Massa salarial anual total: <b>${(mass/1e6).toLocaleString("pt-PT",{maximumFractionDigits:1})} M€</b> (×14 meses)</span>`+
+      `<span>Massa salarial anual total: <b>${(mass/1e6).toLocaleString("pt-PT",{maximumFractionDigits:1})} M€</b> (14 meses)</span>`+
       (prBase!==PR_REAL?`<span style="color:var(--gold)">⚠ simulação ativa</span>`:"");
     return;
   }
@@ -787,7 +787,7 @@ function renderTable(){
   $("#resbar").innerHTML =
     `<span>A mostrar <b>${rows.length}</b> de ${DADOS.mun.length} municípios</span>`+
     `<span>Titulares identificados: <b>${named}/${DADOS.mun.length}</b></span>`+
-    `<span>Massa salarial anual destes presidentes: <b>${(mass/1e6).toLocaleString("pt-PT",{maximumFractionDigits:1})} M€</b> (×14 meses)</span>`+
+    `<span>Massa salarial anual destes presidentes: <b>${(mass/1e6).toLocaleString("pt-PT",{maximumFractionDigits:1})} M€</b> (14 meses)</span>`+
     (prBase!==PR_REAL?`<span style="color:var(--gold)">⚠ simulação ativa</span>`:"");
 }
 

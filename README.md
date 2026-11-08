@@ -61,6 +61,17 @@ python -m http.server 8000
 
 **Nota:** abrir o `index.html` diretamente no browser (protocolo `file://`) não funciona devido a restrições CORS no `fetch()` do `dados.json`.
 
+## Atualização automática dos titulares
+
+Um GitHub Action (`.github/workflows/verificar-titulares.yml`) corre todas as segundas-feiras e compara os presidentes de câmara de `dados.json` com a **Wikidata** através de `scripts/verificar_titulares.py`. Se encontrar diferenças, abre um **Pull Request** com uma tabela de alterações propostas.
+
+- A Wikidata é editada pela comunidade: serve para **detetar** mudanças, nunca para as confirmar.
+- Cada alteração deve ser confirmada numa fonte oficial (ata/edital, DGAL/Portal Autárquico, site da câmara) antes do merge.
+- Ao fazer merge no `main`, o Vercel republica o site automaticamente.
+- Quando o titular mudou, a entrada ganha um 5.º campo `{"desde":"AAAA-MM-DD","fonte":"wikidata"}` e o site mostra «em funções desde…».
+
+Para correr à mão: `python scripts/verificar_titulares.py` (só relatório) ou `--aplicar` (grava em `dados.json`). No GitHub, o workflow também pode ser lançado no separador **Actions → Verificar titulares → Run workflow**.
+
 ## Licença
 
 Este projeto é publicado sob a licença **MIT** — uso, estudo, modificação e redistribuição livres, incluindo para fins comerciais, mediante manutenção da nota de licença.

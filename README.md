@@ -63,7 +63,7 @@ python -m http.server 8000
 
 ## Atualização automática dos titulares
 
-Um GitHub Action (`.github/workflows/verificar-titulares.yml`) corre todas as segundas-feiras e compara os presidentes de câmara de `dados.json` com a **Wikidata** através de `scripts/verificar_titulares.py`. Se encontrar diferenças, abre um **Pull Request** com uma tabela de alterações propostas.
+Um GitHub Action (`.github/workflows/verificar-titulares.yml`) corre todas as segundas-feiras e compara os presidentes de câmara de `dados.json` com a **Wikidata** através de `verificar_titulares.py`. Se encontrar diferenças, abre um **Pull Request** com uma tabela de alterações propostas.
 
 - A Wikidata é editada pela comunidade: serve para **detetar** mudanças, nunca para as confirmar.
 - Cada alteração deve ser confirmada numa fonte oficial (ata/edital, DGAL/Portal Autárquico, site da câmara) antes do merge.

@@ -453,7 +453,7 @@ footer{background:var(--green-deep);color:rgba(240,243,234,.8);margin-top:0}
     </div>
     <button class="more" id="moreBtn" type="button" hidden></button>
 
-    <p class="cov-note rv"><b>Nota de verificação:</b> os nomes apresentados correspondem aos titulares eleitos a 12/10/2025 e empossados para o mandato 2025–2029. Após qualquer alteração de titular (renúncia, falecimento, moção de censura), o dataset será reverificado — ver <a href="#eleicoes">ciclo eleitoral</a>.</p>
+    <p class="cov-note rv"><b>Nota de verificação:</b> os nomes apresentados correspondem aos titulares eleitos a 12/10/2025 e empossados para o mandato 2025–2029. Após qualquer alteração de titular (renúncia, falecimento, moção de censura), o dataset será reverificado — ver <a href="#eleicoes">ciclo eleitoral</a>. Quando o titular mudou, a linha indica a data de entrada em funções.</p>
   </div>
 </section>
 
@@ -750,12 +750,13 @@ function renderChips(){
 }
 
 function rowHTML(m, i){
-  const [dist,name,k,pres] = m, t = DADOS.tiers[k];
+  const [dist,name,k,pres,ext] = m, t = DADOS.tiers[k];
+  const desde = ext && ext.desde ? ext.desde.split("-").reverse().join("/") : "";
   const base = tierVal(k, DADOS, prBase), rep = Math.round(base*0.05), ano = base*14;
   const v80 = Math.round(base*0.8), v80r = Math.round(v80*0.1);
   const main = `<tr class="mun" data-i="${i}" tabindex="0" aria-expanded="false">
     <td><div class="c-name">${esc(name)}<small>${esc(dist)}</small></div>
-      ${pres?`<div class="c-mayor">${esc(pres)} <i>· eleito 12/10/2025</i></div>`:`<div class="c-mayor dim">Titular por verificar</div>`}</td>
+      ${pres?`<div class="c-mayor">${esc(pres)} <i>· ${desde?"em funções desde "+desde:"eleito 12/10/2025"}</i></div>`:`<div class="c-mayor dim">Titular por verificar</div>`}</td>
     <td><span class="tier ${k}" title="${esc(t.lim)}">${k.toUpperCase()} · ${t.pct}%</span></td>
     <td class="v">${fmt(base)} €</td>
     <td class="v soft">+${fmt(rep)} €</td>

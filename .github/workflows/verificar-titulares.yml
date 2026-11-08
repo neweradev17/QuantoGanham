@@ -1,0 +1,33 @@
+name: Verificar titulares
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"      # todas as segundas-feiras, 07:00 UTC
+  workflow_dispatch:          # permite correr à mão no separador Actions
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Comparar titulares com a Wikidata
+        run: python scripts/verificar_titulares.py --aplicar --relatorio "$RUNNER_TEMP/relatorio.md"
+
+      - name: Abrir Pull Request (só se houver alterações)
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: auto/verificar-titulares
+          add-paths: dados.json
+          commit-message: "dados: alterações de titulares propostas pela verificação automática"
+          title: "Verificação de titulares: alterações propostas"
+          body-path: ${{ runner.temp }}/relatorio.md
+          delete-branch: true

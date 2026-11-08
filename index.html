@@ -209,9 +209,39 @@ tr.det td{background:#E9EDE1;border-left:4px solid var(--green);border-bottom:1p
 .empty-state .examples{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}
 .empty-state .ex{font:500 12px var(--mono);padding:7px 12px;border:1px solid var(--line);border-radius:2px;background:#fff;color:var(--green);cursor:pointer;transition:.2s;letter-spacing:.02em}
 .empty-state .ex:hover{background:var(--green);color:#fff;border-color:var(--green)}
-.cov-note{margin-top:18px;font-size:13px;color:var(--ink-soft);max-width:88ch}
+.cov-note{margin-top:18px;font-size:13px;color:var(--ink-soft);max-width:none;width:100%;text-wrap:pretty}
 .cov-note b{color:var(--ink)}
 @media(max-width:900px){.dg{grid-template-columns:1fr}}
+.flt-label{font:600 9.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 7px}
+.rail{margin-bottom:18px}
+.chip small{font:500 10px var(--mono);opacity:.65;margin-left:6px}
+.clear{font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:none;border:1px solid var(--red);color:var(--red);padding:10px 14px;border-radius:2px;cursor:pointer;transition:.2s}
+.clear:hover{background:var(--red);color:#fff}
+.more{display:block;margin:20px auto 0;font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--green);color:#fff;border:0;padding:14px 28px;border-radius:2px;cursor:pointer;transition:.2s}
+.more:hover{background:var(--green-deep)}
+.more[hidden]{display:none}
+.c-name::before{content:"▸";display:inline-block;margin-right:8px;color:var(--green);transition:transform .2s}
+tr.mun.open .c-name::before{transform:rotate(90deg)}
+@media(max-width:720px){
+  .rail{display:flex;flex-wrap:nowrap;overflow-x:auto;margin-right:-16px;padding-right:16px;padding-bottom:8px;scrollbar-width:thin}
+  .rail .chip{flex:0 0 auto}
+  .controls input[type=search],.controls select,.clear{min-width:0;flex:1 1 100%}
+  .tbl-wrap{max-height:none;overflow:visible;border:0;background:none}
+  table.tbl{min-width:0}
+  .tbl thead{display:none}
+  .tbl,.tbl tbody{display:block}
+  tr.mun{display:grid;grid-template-columns:1fr auto;gap:2px 14px;align-items:center;padding:14px 12px;background:var(--paper2);border:1px solid var(--line);border-radius:3px;margin-bottom:8px}
+  tr.mun.open{background:#E9EDE1;border-color:var(--green);margin-bottom:0;border-radius:3px 3px 0 0}
+  tr.mun td{display:block;padding:0;border:0}
+  tr.mun td:nth-child(1){grid-column:1;grid-row:1/3}
+  tr.mun td:nth-child(2){grid-column:2;grid-row:1;justify-self:end}
+  tr.mun td:nth-child(3){grid-column:2;grid-row:2;justify-self:end}
+  tr.mun td:nth-child(n+4){display:none}
+  tr.det{display:block;margin-bottom:8px}
+  tr.det[hidden]{display:none}
+  tr.det td{display:block;padding:16px 14px;border:1px solid var(--green);border-top:0;border-radius:0 0 3px 3px}
+}
+
 
 .proto{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:44px}
 .proto .p{border:1px solid var(--line-d);background:rgba(240,243,234,.05);border-radius:3px;padding:20px;transition:background .25s,transform .25s}
@@ -232,7 +262,7 @@ tr.det td{background:#E9EDE1;border-left:4px solid var(--green);border-bottom:1p
 .pill.ok{background:rgba(111,211,141,.16);color:#8FDCA9;border:1px solid rgba(111,211,141,.4)}
 .pill.nx{background:rgba(194,155,44,.18);color:#E7C46A;border:1px solid rgba(194,155,44,.5)}
 .pill.fu{background:none;color:rgba(240,243,234,.65);border:1px solid var(--line-d)}
-.tl-item p{font-size:13.5px;color:rgba(240,243,234,.78);margin-top:7px;max-width:78ch}
+.tl-item p{font-size:13.5px;color:rgba(240,243,234,.78);margin-top:7px;max-width:none;text-wrap:pretty}
 @media(max-width:900px){.proto{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:540px){.proto{grid-template-columns:1fr}}
 
@@ -292,7 +322,6 @@ footer{background:var(--green-deep);color:rgba(240,243,234,.8);margin-top:0}
   .stat:nth-child(even){padding-left:14px}
   .gazette{padding:22px 18px 26px}
   .stamp{right:-4px;bottom:-10px;transform:rotate(-5deg)}
-  .tbl-wrap{max-height:70vh}
   .foot-in{padding:32px 16px}
 }
 </style>
@@ -392,34 +421,25 @@ footer{background:var(--green-deep);color:rgba(240,243,234,.8);margin-top:0}
 
     <div class="controls rv">
       <input type="search" id="q" placeholder="Procurar concelho, distrito ou presidente…" aria-label="Procurar">
-      <select id="distSel" aria-label="Filtrar por distrito"><option value="">Todos os distritos / regiões</option></select>
       <select id="sortSel" aria-label="Ordenar">
         <option value="nome">Ordenar: nome A–Z</option>
         <option value="sal-d">Ordenar: vencimento ↓</option>
         <option value="sal-a">Ordenar: vencimento ↑</option>
         <option value="dist">Ordenar: distrito</option>
       </select>
+      <button class="clear" id="clearF" type="button" hidden>Limpar filtros ✕</button>
     </div>
 
+    <p class="flt-label rv">Distrito / região</p>
+    <div class="chiprow rail rv" id="distChips"></div>
+    <p class="flt-label rv">Escalão</p>
     <div class="chiprow rv" id="tierChips"></div>
 
     <div class="resbar rv" id="resbar"></div>
 
     <div class="rv"><div class="distbars" id="distbars"></div><div class="distlegend" id="distlegend"></div></div>
 
-    <div class="empty-state rv" id="emptyState">
-      <div class="hint">Explore os <span>308</span> concelhos portugueses</div>
-      <p>Use a caixa de pesquisa, selecione um distrito ou clique num dos escalões acima para filtrar os municípios. Todos os dados são públicos e atualizados para o mandato 2025–2029.</p>
-      <div class="examples" id="examples">
-        <span class="ex" data-q="Lisboa">Lisboa</span>
-        <span class="ex" data-q="Porto">Porto</span>
-        <span class="ex" data-q="Coimbra">Coimbra</span>
-        <span class="ex" data-q="Faro">Faro</span>
-        <span class="ex" data-q="Braga">Braga</span>
-      </div>
-    </div>
-
-    <div class="tbl-wrap rv" id="tblWrap" style="display:none">
+    <div class="tbl-wrap rv" id="tblWrap">
       <table class="tbl">
         <thead><tr>
           <th style="width:38%">Concelho · Presidente (mandato 2025–2029)</th>
@@ -431,6 +451,7 @@ footer{background:var(--green-deep);color:rgba(240,243,234,.8);margin-top:0}
         <tbody id="tbody"></tbody>
       </table>
     </div>
+    <button class="more" id="moreBtn" type="button" hidden></button>
 
     <p class="cov-note rv"><b>Nota de verificação:</b> os nomes apresentados correspondem aos titulares eleitos a 12/10/2025 e empossados para o mandato 2025–2029. Após qualquer alteração de titular (renúncia, falecimento, moção de censura), o dataset será reverificado — ver <a href="#eleicoes">ciclo eleitoral</a>.</p>
   </div>
@@ -667,26 +688,32 @@ $("#prReset").addEventListener("click", ()=>{
 });
 
 /* ================= 308 CÂMARAS ================= */
-let qEl, distSel, sortSel, tbody, emptyState, tblWrap;
-let fTier = "all";
+let qEl, sortSel, tbody, tblWrap;
+let fTier = "all", fDist = "";
+const PAGE = 15; let page = PAGE;
+
+function refresh(){ page = PAGE; renderChips(); syncDists(); renderTable(); }
+function syncDists(){
+  document.querySelectorAll("#distChips .chip").forEach(b=>{
+    const on = b.dataset.d === fDist; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on);
+  });
+}
 
 function setupPesquisa(){
-  qEl = $("#q"); distSel = $("#distSel"); sortSel = $("#sortSel");
-  tbody = $("#tbody"); emptyState = $("#emptyState"); tblWrap = $("#tblWrap");
+  qEl = $("#q"); sortSel = $("#sortSel"); tbody = $("#tbody"); tblWrap = $("#tblWrap");
 
-  [...new Set(DADOS.mun.map(m=>m[0]))].sort().forEach(d=>{
-    const o = document.createElement("option"); o.value = o.textContent = d; distSel.appendChild(o);
+  const cd = {}; DADOS.mun.forEach(m=>cd[m[0]] = (cd[m[0]]||0)+1);
+  $("#distChips").innerHTML = `<button class="chip" data-d="">Todos<small>${DADOS.mun.length}</small></button>` +
+    Object.keys(cd).sort((a,b)=>a.localeCompare(b,"pt")).map(d=>`<button class="chip" data-d="${esc(d)}">${esc(d)}<small>${cd[d]}</small></button>`).join("");
+  $("#distChips").addEventListener("click", e=>{
+    const b = e.target.closest(".chip"); if(!b) return;
+    fDist = b.dataset.d; refresh();
   });
 
-  document.querySelectorAll("#examples .ex").forEach(b=>{
-    b.addEventListener("click", ()=>{
-      qEl.value = b.dataset.q;
-      qEl.dispatchEvent(new Event("input"));
-      qEl.focus();
-    });
-  });
-
-  [qEl, distSel, sortSel].forEach(el=>el.addEventListener("input", renderTable));
+  qEl.addEventListener("input", refresh);
+  sortSel.addEventListener("input", refresh);
+  $("#clearF").addEventListener("click", ()=>{ qEl.value = ""; fDist = ""; fTier = "all"; refresh(); });
+  $("#moreBtn").addEventListener("click", ()=>{ const from = page; page += PAGE; renderTable(from); });
   document.addEventListener("keydown", e=>{
     if(e.key==="/" && document.activeElement!==qEl){ e.preventDefault(); qEl.focus(); }
   });
@@ -707,17 +734,18 @@ function setupPesquisa(){
     `<i style="width:${(c[k]/total*100).toFixed(1)}%;background:${t.cor}" title="Escalão ${k.toUpperCase()}: ${c[k]} concelhos"></i>`).join("");
   $("#distlegend").innerHTML = Object.entries(DADOS.tiers).map(([k,t])=>
     `<span><span class="dot" style="display:inline-block;width:9px;height:9px;background:${t.cor};margin-right:6px"></span>Escalão ${k.toUpperCase()} — ${c[k]} concelhos · presidente ${fmt(tierVal(k, DADOS, prBase))} €/mês</span>`).join("");
+  syncDists();
 }
 
 function renderChips(){
   const c = tierCounts();
-  let html = `<button class="chip ${fTier==="all"?"on":""}" data-t="all">Todos · ${DADOS.mun.length}</button>`;
+  let html = `<button class="chip ${fTier==="all"?"on":""}" data-t="all">Todos<small>${DADOS.mun.length}</small></button>`;
   Object.entries(DADOS.tiers).forEach(([k,t])=>{
-    html += `<button class="chip ${fTier===k?"on":""}" data-t="${k}"><span class="dot" style="background:${t.cor}"></span>${k.toUpperCase()} · ${c[k]}</button>`;
+    html += `<button class="chip ${fTier===k?"on":""}" data-t="${k}"><span class="dot" style="background:${t.cor}"></span>${k.toUpperCase()} · ${t.pct}%<small>${c[k]}</small></button>`;
   });
   $("#tierChips").innerHTML = html;
   document.querySelectorAll("#tierChips .chip").forEach(b=>b.addEventListener("click",()=>{
-    fTier = b.dataset.t; renderChips(); renderTable();
+    fTier = b.dataset.t; refresh();
   }));
 }
 
@@ -751,28 +779,10 @@ function rowHTML(m, i){
   return main + det;
 }
 
-function renderTable(){
+function renderTable(from){
   const q = qEl.value.trim().toLowerCase();
-  const isFiltered = q || distSel.value || fTier !== "all";
-
-  if(!isFiltered){
-    emptyState.style.display = "block";
-    tblWrap.style.display = "none";
-    const mass = DADOS.mun.reduce((s,m)=>s+tierVal(m[2], DADOS, prBase)*14,0);
-    const named = DADOS.mun.filter(m=>m[3]).length;
-    $("#resbar").innerHTML =
-      `<span>Base de dados com <b>${DADOS.mun.length}</b> municípios</span>`+
-      `<span>Titulares identificados: <b>${named}/${DADOS.mun.length}</b></span>`+
-      `<span>Massa salarial anual total: <b>${(mass/1e6).toLocaleString("pt-PT",{maximumFractionDigits:1})} M€</b> (14 meses)</span>`+
-      (prBase!==PR_REAL?`<span style="color:var(--gold)">⚠ simulação ativa</span>`:"");
-    return;
-  }
-
-  emptyState.style.display = "none";
-  tblWrap.style.display = "block";
-
   let rows = DADOS.mun.map((m,i)=>({m,i}));
-  if(distSel.value) rows = rows.filter(r=>r.m[0]===distSel.value);
+  if(fDist) rows = rows.filter(r=>r.m[0]===fDist);
   if(fTier!=="all") rows = rows.filter(r=>r.m[2]===fTier);
   if(q) rows = rows.filter(r=>(r.m[0]+" "+r.m[1]+" "+(r.m[3]||"")).toLowerCase().includes(q));
   const s = sortSel.value;
@@ -781,15 +791,23 @@ function renderTable(){
   else if(s==="dist") rows.sort((a,b)=>a.m[0].localeCompare(b.m[0],"pt")||a.m[1].localeCompare(b.m[1],"pt"));
   else rows.sort((a,b)=>a.m[1].localeCompare(b.m[1],"pt"));
 
-  tbody.innerHTML = rows.length? rows.map(r=>rowHTML(r.m,r.i)).join("") :
-    `<tr><td colspan="5"><div class="empty">Nenhum concelho corresponde à pesquisa. Limpe os filtros para ver os ${DADOS.mun.length}.</div></td></tr>`;
+  const total = rows.length, vis = rows.slice(0, page), left = total - vis.length;
+  /* "Mostrar mais": acrescenta só as novas linhas, sem refazer as que já existem */
+  if(from && total) tbody.insertAdjacentHTML("beforeend", vis.slice(from).map(r=>rowHTML(r.m,r.i)).join(""));
+  else tbody.innerHTML = total ? vis.map(r=>rowHTML(r.m,r.i)).join("") :
+    `<tr><td colspan="5"><div class="empty">Nenhum concelho corresponde à pesquisa. Use «Limpar filtros» para ver os ${DADOS.mun.length}.</div></td></tr>`;
+
+  const more = $("#moreBtn");
+  more.hidden = left <= 0;
+  more.textContent = `Mostrar mais ${Math.min(PAGE,left)} · faltam ${left}`;
+  $("#clearF").hidden = !(q || fDist || fTier!=="all");
 
   const mass = rows.reduce((s,r)=>s+tierVal(r.m[2], DADOS, prBase)*14,0);
-  const named = DADOS.mun.filter(m=>m[3]).length;
+  const named = rows.filter(r=>r.m[3]).length;
   $("#resbar").innerHTML =
-    `<span>A mostrar <b>${rows.length}</b> de ${DADOS.mun.length} municípios</span>`+
-    `<span>Titulares identificados: <b>${named}/${DADOS.mun.length}</b></span>`+
-    `<span>Massa salarial anual destes presidentes: <b>${(mass/1e6).toLocaleString("pt-PT",{maximumFractionDigits:1})} M€</b> (14 meses)</span>`+
+    `<span>A mostrar <b>${vis.length}</b> de ${total} municípios${total<DADOS.mun.length?` (filtrados de ${DADOS.mun.length})`:""}</span>`+
+    `<span>Titulares identificados: <b>${named}/${total}</b></span>`+
+    `<span>Massa salarial anual${total<DADOS.mun.length?" deste filtro":" total"}: <b>${(mass/1e6).toLocaleString("pt-PT",{maximumFractionDigits:1})} M€</b> (14 meses)</span>`+
     (prBase!==PR_REAL?`<span style="color:var(--gold)">⚠ simulação ativa</span>`:"");
 }
 

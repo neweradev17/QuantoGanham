@@ -70,7 +70,7 @@ Um GitHub Action (`.github/workflows/verificar-titulares.yml`) corre todas as se
 - Ao fazer merge no `main`, o Vercel republica o site automaticamente.
 - Quando o titular mudou, a entrada ganha um 5.º campo `{"desde":"AAAA-MM-DD","fonte":"wikidata"}` e o site mostra «em funções desde…».
 
-Para correr à mão: `python scripts/verificar_titulares.py` (só relatório) ou `--aplicar` (grava em `dados.json`). No GitHub, o workflow também pode ser lançado no separador **Actions → Verificar titulares → Run workflow**.
+Para correr à mão: `python verificar_titulares.py` (só relatório) ou `--aplicar` (grava em `dados.json`). No GitHub, o workflow também pode ser lançado no separador **Actions → Verificar titulares → Run workflow**.
 
 ## Licença
 
